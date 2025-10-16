@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import { useCart } from "./CartContext"; 
+import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 
 function Products() {
@@ -10,6 +10,8 @@ function Products() {
   const [genderFilter, setGenderFilter] = useState("All");
   const { addToCart, addToWishlist } = useCart();
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,7 +26,6 @@ function Products() {
     fetchProducts();
   }, []);
 
-  // Handle gender filter
   const handleFilter = (gender) => {
     setGenderFilter(gender);
     if (gender === "All") setFilteredProducts(products);
@@ -39,36 +40,23 @@ function Products() {
 
       {/* Filter Buttons */}
       <div className="flex justify-center gap-4 mb-8">
-        <button
-          onClick={() => handleFilter("Women")}
-          className={`px-4 py-2 rounded-lg ${
-            genderFilter === "Women"
-              ? "bg-pink-500 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-pink-300"
-          }`}
-        >
-          Women
-        </button>
-        <button
-          onClick={() => handleFilter("Men")}
-          className={`px-4 py-2 rounded-lg ${
-            genderFilter === "Men"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-blue-300"
-          }`}
-        >
-          Men
-        </button>
-        <button
-          onClick={() => handleFilter("All")}
-          className={`px-4 py-2 rounded-lg ${
-            genderFilter === "All"
-              ? "bg-green-500 text-white"
-              : "bg-gray-200 text-gray-800 hover:bg-green-300"
-          }`}
-        >
-          All
-        </button>
+        {["Women", "Men", "All"].map((gender) => (
+          <button
+            key={gender}
+            onClick={() => handleFilter(gender)}
+            className={`px-4 py-2 rounded-lg ${
+              genderFilter === gender
+                ? gender === "Women"
+                  ? "bg-pink-500 text-white"
+                  : gender === "Men"
+                  ? "bg-blue-500 text-white"
+                  : "bg-green-500 text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            }`}
+          >
+            {gender}
+          </button>
+        ))}
       </div>
 
       {/* Product Grid */}
@@ -76,31 +64,50 @@ function Products() {
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition w-full max-w-sm"
+            className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out w-full max-w-sm flex flex-col"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="object-cover w-full h-56"
-            />
-            <div className="p-4">
+            {/* Product Image */}
+            <div className="overflow-hidden">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="object-cover w-full h-56 transition-transform duration-500 ease-in-out hover:scale-110"
+              />
+            </div>
+
+            {/* Product Info */}
+            <div className="p-4 flex flex-col flex-1">
               <h3 className="text-lg font-bold text-slate-800">{product.name}</h3>
-              <p className="text-gray-600 text-sm mt-1">{product.description}</p>
+              <p className="text-gray-600 text-sm mt-1 flex-1">{product.description}</p>
               <p className="text-blue-600 font-semibold text-lg mt-2">₹{product.price}</p>
 
-              <div className="flex items-center justify-between mt-4">
+              {/* Buttons at the bottom */}
+              <div className="flex justify-between mt-4 pt-2">
                 <button
                   onClick={() => {
-                    addToCart(product);
-                    navigate("/cart");
+                    if (user) {
+                      addToCart(product);
+                      navigate("/cart");
+                    } else {
+                      alert("Please login to add items to the cart!");
+                      navigate("/login");
+                    }
                   }}
-                  className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                  className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition flex-1 justify-center"
                 >
                   <FaShoppingCart /> Add to Cart
                 </button>
+
                 <button
-                  onClick={() => addToWishlist(product)}
-                  className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-2 rounded-lg transition"
+                  onClick={() => {
+                    if (user) {
+                      addToWishlist(product);
+                    } else {
+                      alert("Please login to add items to wishlist!");
+                      navigate("/login");
+                    }
+                  }}
+                  className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg transition flex-1 justify-center ml-2"
                 >
                   <FaHeart /> Wishlist
                 </button>

@@ -1,48 +1,41 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useCart } from "./CartContext";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const videos = ["video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4"];
+  const [videos] = useState(["video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4"]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showProducts, setShowProducts] = useState(false);
+  const [products, setProducts] = useState([]);
+  const { addToCart, addToWishlist } = useCart();
+  const navigate = useNavigate();
 
-  const products = [
-    {
-      id: 1,
-      name: "Bigger Max Pulse — Energy in Every Step",
-      price: "$99",
-      image: "image21.jpg",
-    },
-    {
-      id: 2,
-      name: "Bigger Max Edge — Next-Level Comfort, Unmatched Style",
-      price: "$149",
-      image: "image22.jpg",
-    },
-    {
-      id: 3,
-      name: "Bigger Max Pulse — Energy in Every Step",
-      price: "$599",
-      image: "image23.jpg",
-    },
-    {
-      id: 4,
-      name: "Bigger Max Air — Lightness That Lifts You",
-      price: "$59",
-      image: "image24.jpg",
-    },
-  ];
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  // Auto-change video every 6 seconds
+  // 🎞 Auto-change video every 6 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % videos.length);
     }, 6000);
     return () => clearInterval(interval);
+  }, [videos.length]);
+
+  // 📦 Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/homeProduct"); 
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
   }, []);
 
   return (
-    
     <div className="flex flex-col items-center">
       {/* 🎥 Video Banner Section */}
       <div className="relative w-full h-screen overflow-hidden bg-black">
@@ -62,7 +55,7 @@ function Home() {
           ))}
         </div>
 
-        {/* Dark Overlay */}
+        {/* Overlay */}
         <div className="absolute inset-0  bg-opacity-50"></div>
 
         {/* Text Content */}
@@ -91,9 +84,7 @@ function Home() {
       {/* 🛍 Product Section */}
       {showProducts && (
         <div className="w-full py-16 bg-gray-100">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Featured Products
-          </h2>
+          <h2 className="text-3xl font-bold text-center mb-10">Featured Products</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-8">
             {products.map((product) => (
@@ -106,17 +97,39 @@ function Home() {
                   alt={product.name}
                   className="w-full h-56 object-cover"
                 />
-                <div className="p-4 text-center">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-700 mb-3">{product.price}</p>
-                  <div className="flex justify-center gap-3">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
-                      Add to Cart
+                <div className="p-5 text-center">
+                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                  <p className="text-gray-700 mb-4">₹{product.price}</p>
+
+                  {/* Buttons aligned properly */}
+                  <div className="flex gap-3 justify-center">
+                    <button
+                      onClick={() => {
+                        if (user) {
+                          addToCart(product);
+                          navigate("/cart");
+                        } else {
+                          alert("Please login to add items to the cart!");
+                          navigate("/login");
+                        }
+                      }}
+                      className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-1/2 transition font-medium"
+                    >
+                      <FaShoppingCart /> Add to Cart
                     </button>
-                    <button className="border border-gray-400 hover:bg-gray-200 px-4 py-2 rounded-lg text-sm">
-                      ❤️ Wishlist
+
+                    <button
+                      onClick={() => {
+                        if (user) {
+                          addToWishlist(product);
+                        } else {
+                          alert("Please login to add items to wishlist!");
+                          navigate("/login");
+                        }
+                      }}
+                      className="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg w-1/2 transition font-medium"
+                    >
+                      <FaHeart /> Wishlist
                     </button>
                   </div>
                 </div>

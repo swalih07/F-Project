@@ -6,7 +6,8 @@ import Registration from "./pages/Registration";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
-
+import Payment from "./pages/Payment";
+import Order from "./pages/Order";
 
 
 function App() {
@@ -15,11 +16,14 @@ function App() {
       <Navbar />
     <Routes>
       <Route path="/" element={<Home/>} />
+      <Route path="/home" element={<Home/>} />
       <Route path="/product" element={<Products/>} />
       <Route path="/cart" element={<Cart/>} />
       <Route path="/wishlist" element={<Wishlist/>} />
       <Route path="/login" element={<Login />} />
       <Route path="/registration" element={<Registration />} />
+      <Route path="/payment" element={<Payment/>} />
+      <Route path="/order" element={<Order/>}/>
     </Routes>
       
     </Router>
