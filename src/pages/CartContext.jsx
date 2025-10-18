@@ -1,61 +1,112 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
 const CartContext = createContext();
 
-export const useCart = () => useContext(CartContext);
-
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children, user }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  // Load saved cart & wishlist from localStorage
+  // 🔹 Fetch cart & wishlist when user logs in
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setCart(savedCart);
-    setWishlist(savedWishlist);
-  }, []);
+    if (!user) return;
 
-  // Save updates to localStorage automatically
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [cart, wishlist]);
+    const fetchData = async () => {
+      try {
+        const [cartRes, wishlistRes] = await Promise.all([
+          axios.get(`http://localhost:5000/cart?userId=${user.id}`),
+          axios.get(`http://localhost:5000/wishlist?userId=${user.id}`),
+        ]);
 
-  // 👉 Add to cart
-  const addToCart = (product) => {
-    const exists = cart.find((item) => item.id === product.id);
-    if (!exists) {
-      setCart([...cart, product]);
-    } else {
-      alert("Product already in cart!");
+        setCart(cartRes.data || []);
+        setWishlist(wishlistRes.data || []);
+      } catch (err) {
+        console.error("❌ Failed to fetch cart/wishlist:", err);
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+  // 🛒 Add to cart
+  const addToCart = async (product) => {
+    if (!user) return alert("Please login to add items to cart!");
+
+    // Avoid duplicates
+    const alreadyInCart = cart.find((item) => item.id === product.id);
+    if (alreadyInCart) {
+      alert("Item already in cart!");
+      return;
+    }
+
+    const newItem = { ...product, userId: user.id, quantity: 1 };
+
+    try {
+      const res = await axios.post("http://localhost:5000/cart", newItem);
+      setCart((prev) => [...prev, res.data]);
+    } catch (err) {
+      console.error("❌ Failed to add to cart:", err);
     }
   };
 
-  // 👉 Remove from cart
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
+  // 🗑️ Remove from cart
+  const removeFromCart = async (productId) => {
+    if (!user) return;
 
-  // 👉 Add to wishlist
-  const addToWishlist = (product) => {
-    const exists = wishlist.find((item) => item.id === product.id);
-    if (!exists) {
-      setWishlist([...wishlist, product]);
-    } else {
-      alert("Already in wishlist!");
+    try {
+      const item = cart.find((c) => c.id === productId);
+      if (item) await axios.delete(`http://localhost:5000/cart/${item.id}`);
+      setCart((prev) => prev.filter((item) => item.id !== productId));
+    } catch (err) {
+      console.error("❌ Failed to remove from cart:", err);
     }
   };
 
-  // 👉 Remove from wishlist
-  const removeFromWishlist = (id) => {
-    setWishlist(wishlist.filter((item) => item.id !== id));
+  // 🧹 Clear entire cart (after payment)
+  const clearCart = async () => {
+    if (!user) return;
+    try {
+      const userCartItems = cart.filter((c) => c.userId === user.id);
+      for (const item of userCartItems) {
+        await axios.delete(`http://localhost:5000/cart/${item.id}`);
+      }
+      setCart([]);
+    } catch (err) {
+      console.error("❌ Failed to clear cart:", err);
+    }
   };
 
-  // 👉 Buy Now
-  const buyNow = (product) => {
-    alert(`You bought ${product.name} for ₹${product.price}`);
-    removeFromCart(product.id);
+  // 💖 Add to wishlist
+  const addToWishlist = async (product) => {
+    if (!user) return alert("Please login to add items to wishlist!");
+
+    // Avoid duplicates
+    const alreadyInWishlist = wishlist.find((item) => item.id === product.id);
+    if (alreadyInWishlist) {
+      alert("Item already in wishlist!");
+      return;
+    }
+
+    const newItem = { ...product, userId: user.id };
+
+    try {
+      const res = await axios.post("http://localhost:5000/wishlist", newItem);
+      setWishlist((prev) => [...prev, res.data]);
+    } catch (err) {
+      console.error("❌ Failed to add to wishlist:", err);
+    }
+  };
+
+  // 🗑️ Remove from wishlist
+  const removeFromWishlist = async (id) => {
+    if (!user) return;
+
+    try {
+      await axios.delete(`http://localhost:5000/wishlist/${id}`);
+      setWishlist((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.error("❌ Failed to remove from wishlist:", err);
+    }
   };
 
   return (
@@ -65,12 +116,14 @@ export const CartProvider = ({ children }) => {
         wishlist,
         addToCart,
         removeFromCart,
+        clearCart,
         addToWishlist,
         removeFromWishlist,
-        buyNow,
       }}
     >
       {children}
     </CartContext.Provider>
   );
 };
+
+export const useCart = () => useContext(CartContext);

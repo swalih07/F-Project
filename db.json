@@ -53,6 +53,42 @@
       "fullName": "swalih",
       "email": "swalihem11@gmail.com",
       "password": "123456"
+    },
+    {
+      "id": "980f",
+      "fullName": "soman",
+      "email": "soman@gmail.com",
+      "password": "soman123",
+      "cart": [
+        {
+          "id": "2",
+          "name": "Bigger Max Neo — Redefine Your Motion",
+          "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
+          "price": 1299,
+          "image": "/product/image2.jpg",
+          "gender": "Women",
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Bigger Max Aero — Light as Air, Strong in Motion",
+          "description": "High-quality Feather-light comfort with unshakable grip — the future of effortless speed.",
+          "price": 2500,
+          "image": "/product/image7.jpg",
+          "gender": "Men",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "selectedSize": 8,
+          "quantity": 1
+        }
+      ]
     }
   ],
   "products": [
@@ -68,7 +104,7 @@
       "id": "2",
       "name": "Bigger Max Neo — Redefine Your Motion",
       "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image2.jpg",
       "gender": "Women"
     },
@@ -76,7 +112,7 @@
       "id": "3",
       "name": "Bigger Max Pulse — Feel the Energy",
       "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
-      "price": 1499,
+      "price": 1799,
       "image": "/product/image3.jpg",
       "gender": "Men"
     },
@@ -92,7 +128,7 @@
       "id": "5",
       "name": "Bigger Max Vision — Style Meets Speed",
       "description": "High-quality Sport-inspired design with a premium streetwear edge. Run fast, look sharp.",
-      "price": 1499,
+      "price": 1200,
       "image": "/product/image5.jpg",
       "gender": "Men"
     },
@@ -100,7 +136,7 @@
       "id": "6",
       "name": "Bigger Max Origin — Designed for the Bold",
       "description": "High-quality Classic style reimagined for modern movers — confidence from the ground up.",
-      "price": 1499,
+      "price": 2000,
       "image": "/product/image6.jpg",
       "gender": "Women"
     },
@@ -108,7 +144,7 @@
       "id": "7",
       "name": "Bigger Max Aero — Light as Air, Strong in Motion",
       "description": "High-quality Feather-light comfort with unshakable grip — the future of effortless speed.",
-      "price": 1499,
+      "price": 2500,
       "image": "/product/image7.jpg",
       "gender": "Men"
     },
@@ -124,7 +160,7 @@
       "id": "9",
       "name": "Bigger Max Turbo — Ignite Your Run",
       "description": "High-quality Explosive energy return with every step — lace up and take off.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image9.jpg",
       "gender": "Men"
     },
@@ -132,7 +168,7 @@
       "id": "10",
       "name": "Bigger Max Sprint — Every Step Counts",
       "description": "High-quality Precision-built for agility and pace — your perfect training partner.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image10.jpg",
       "gender": "Women"
     },
@@ -140,7 +176,7 @@
       "id": "11",
       "name": "Bigger Max Drive — Push Beyond Limits",
       "description": "High-quality Superior traction and control — keep going when others stop.",
-      "price": 1499,
+      "price": 900,
       "image": "/product/image11.jpg",
       "gender": "Men"
     },
@@ -148,7 +184,7 @@
       "id": "12",
       "name": "Bigger Max Core — Power. Comfort. Control",
       "description": "High-quality All-day performance meets timeless design — built for athletes and dreamers alike.",
-      "price": 1499,
+      "price": 1799,
       "image": "/product/image12.jpg",
       "gender": "Women"
     },
@@ -156,7 +192,7 @@
       "id": "13",
       "name": "Bigger Max X-Force — Train Without Boundaries",
       "description": "High-quality Tough, breathable, and flexible — conquer every challenge with power.",
-      "price": 1499,
+      "price": 1999,
       "image": "/product/image13.jpg",
       "gender": "Men"
     },
@@ -164,7 +200,7 @@
       "id": "14",
       "name": "Bigger Max Momentum — Keep Moving Forward",
       "description": "High-quality Engineered for endurance and style — never lose your stride.",
-      "price": 1499,
+      "price": 1599,
       "image": "/product/image14.jpg",
       "gender": "Women"
     },
@@ -172,7 +208,7 @@
       "id": "15",
       "name": "Bigger Max StreetFlex — Born for the City",
       "description": "High-quality Urban-inspired comfort with street-ready flair — made to move your way.",
-      "price": 1499,
+      "price": 1699,
       "image": "/product/image15.jpg",
       "gender": "Men"
     },
@@ -180,7 +216,7 @@
       "id": "16",
       "name": "Bigger Max Glow — Turn Heads Everywhere",
       "description": "High-quality Vivid colors and bold design — shine day or night.",
-      "price": 1499,
+      "price": 1999,
       "image": "/product/image16.jpg",
       "gender": "Women"
     },
@@ -188,7 +224,7 @@
       "id": "17",
       "name": "Bigger Max Drift — Comfort in Every Step",
       "description": "High-quality Soft, cushioned, and effortless — walk your vibe in total comfort.",
-      "price": 1499,
+      "price": 1999,
       "image": "/product/image17.jpg",
       "gender": "Men"
     },
@@ -204,7 +240,7 @@
       "id": "19",
       "name": "Bigger Max Hype — Bold Moves Only",
       "description": "High-quality Make every step a statement — fearless design for fearless people.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image19.jpg",
       "gender": "Men"
     },
@@ -222,7 +258,7 @@
       "id": "26",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1699,
       "image": "/product/image26.jpg",
       "gender": "Women"
     },
@@ -230,7 +266,7 @@
       "id": "27",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1999,
       "image": "/product/image27.jpg",
       "gender": "Women"
     },
@@ -238,7 +274,7 @@
       "id": "28",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1899,
       "image": "/product/image28.jpg",
       "gender": "Women"
     },
@@ -246,7 +282,7 @@
       "id": "29",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image29.jpg",
       "gender": "Women"
     },
@@ -262,7 +298,7 @@
       "id": "31",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1599,
       "image": "/product/image31.jpg",
       "gender": "Women"
     },
@@ -270,7 +306,7 @@
       "id": "32",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1299,
       "image": "/product/image33.jpg",
       "gender": "Women"
     },
@@ -278,7 +314,7 @@
       "id": "33",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1999,
       "image": "/product/image33.jpg",
       "gender": "Women"
     },
@@ -286,7 +322,7 @@
       "id": "34",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1799,
       "image": "/product/image34.jpg",
       "gender": "Women"
     },
@@ -294,7 +330,7 @@
       "id": "35",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1899,
       "image": "/product/image35.jpg",
       "gender": "Women"
     },
@@ -302,9 +338,55 @@
       "id": "36",
       "name": "Bigger Max Core — Power. Comfort. Control.",
       "description": "High-quality Playful energy with powerful comfort — stand out with every move.",
-      "price": 1499,
+      "price": 1899,
       "image": "/product/image36.jpg",
       "gender": "Women"
+    }
+  ],
+  "cart": [
+    {
+      "id": "cea1",
+      "userId": "980f",
+      "items": [
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "wishlist": [
+    {
+      "id": "3",
+      "name": "Bigger Max Pulse — Feel the Energy",
+      "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+      "price": 1799,
+      "image": "/product/image3.jpg",
+      "gender": "Men",
+      "userId": "980f"
+    },
+    {
+      "id": "4",
+      "name": "Bigger Max Flux — Move with Power",
+      "description": "High-quality Dynamic support and fluid motion — built for unstoppable performance.",
+      "price": 1499,
+      "image": "/product/image4.jpg",
+      "gender": "Women",
+      "userId": "980f"
+    },
+    {
+      "id": "2",
+      "name": "Bigger Max Neo — Redefine Your Motion",
+      "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
+      "price": 1299,
+      "image": "/product/image2.jpg",
+      "gender": "Women",
+      "userId": "980f"
     }
   ]
 }

@@ -1,16 +1,37 @@
+import { toast } from "react-toastify";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, addToCart, clearCart } = useCart();
   const navigate = useNavigate();
 
   // Calculate total amount
-  const totalAmount = cart.reduce((sum, item) => sum + Number(item.price), 0);
+  const totalAmount = cart.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
+    0
+  );
+
+  // Increase quantity
+  const handleIncrease = (item) => {
+    const updatedItem = { ...item, quantity: item.quantity + 1 };
+    removeFromCart(item.id); // remove old item
+    addToCart(updatedItem); // add updated item
+  };
+
+  // Decrease quantity
+  const handleDecrease = (item) => {
+    if (item.quantity === 1) {
+      removeFromCart(item.id);
+      return;
+    }
+    const updatedItem = { ...item, quantity: item.quantity - 1 };
+    removeFromCart(item.id);
+    addToCart(updatedItem);
+  };
 
   const handleBuyAll = () => {
-    if (cart.length === 0) return alert("Cart is empty!");
-    // Navigate to payment page and pass cart & totalAmount
+    if (cart.length === 0) return toast.info("🛒 Cart is empty!");
     navigate("/payment", { state: { cart, totalAmount } });
   };
 
@@ -39,7 +60,25 @@ function Cart() {
                   className="w-full h-56 object-cover rounded-lg mb-4"
                 />
                 <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p className="text-gray-500 mt-2">₹{item.price}</p>
+                <p className="text-gray-500 mt-2">
+                  ₹{item.price} × {item.quantity} = ₹{item.price * item.quantity}
+                </p>
+
+                <div className="flex justify-center gap-2 mt-4 items-center">
+                  <button
+                    onClick={() => handleDecrease(item)}
+                    className="bg-gray-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-gray-400"
+                  >
+                    -
+                  </button>
+                  <span className="px-2">{item.quantity}</span>
+                  <button
+                    onClick={() => handleIncrease(item)}
+                    className="bg-gray-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-gray-400"
+                  >
+                    +
+                  </button>
+                </div>
 
                 <div className="flex justify-center gap-4 mt-4">
                   <button
@@ -54,12 +93,18 @@ function Cart() {
           </div>
 
           {/* Buy All Button */}
-          <div className="max-w-3xl mx-auto mt-8 flex justify-center">
+          <div className="max-w-3xl mx-auto mt-8 flex justify-center gap-4">
             <button
               onClick={handleBuyAll}
               className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg font-semibold"
             >
               Buy All for ₹{totalAmount}
+            </button>
+            <button
+              onClick={clearCart}
+              className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 text-lg font-semibold"
+            >
+              Clear Cart
             </button>
           </div>
         </>

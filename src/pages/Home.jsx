@@ -3,6 +3,7 @@ import axios from "axios";
 import { useCart } from "./CartContext";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Home() {
   const [videos] = useState(["video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4"]);
@@ -14,7 +15,7 @@ function Home() {
 
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  // 🎞 Auto-change video every 6 seconds
+  // Auto-change video every 6s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % videos.length);
@@ -22,11 +23,11 @@ function Home() {
     return () => clearInterval(interval);
   }, [videos.length]);
 
-  // 📦 Fetch products from API
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/homeProduct"); 
+        const response = await axios.get("http://localhost:5000/homeProduct");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -37,7 +38,7 @@ function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* 🎥 Video Banner Section */}
+      {/* Video Banner */}
       <div className="relative w-full h-screen overflow-hidden bg-black">
         <div className="absolute top-0 left-0 w-full h-full">
           {videos.map((video, index) => (
@@ -55,10 +56,8 @@ function Home() {
           ))}
         </div>
 
-        {/* Overlay */}
         <div className="absolute inset-0  bg-opacity-50"></div>
 
-        {/* Text Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
             Welcome to Our Store
@@ -66,7 +65,6 @@ function Home() {
           <p className="text-lg md:text-2xl mb-6">
             Discover premium products at the best prices.
           </p>
-
           <div className="flex gap-4">
             <button
               onClick={() => setShowProducts(true)}
@@ -81,7 +79,7 @@ function Home() {
         </div>
       </div>
 
-      {/* 🛍 Product Section */}
+      {/* Products */}
       {showProducts && (
         <div className="w-full py-16 bg-gray-100">
           <h2 className="text-3xl font-bold text-center mb-10">Featured Products</h2>
@@ -90,7 +88,8 @@ function Home() {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2"
+                onClick={() => navigate("/productdetails", { state: { product } })}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition transform hover:-translate-y-1"
               >
                 <img
                   src={product.image}
@@ -100,16 +99,13 @@ function Home() {
                 <div className="p-5 text-center">
                   <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
                   <p className="text-gray-700 mb-4">₹{product.price}</p>
-
-                  {/* Buttons aligned properly */}
                   <div className="flex gap-3 justify-center">
                     <button
-                      onClick={() => {
-                        if (user) {
-                          addToCart(product);
-                          navigate("/cart");
-                        } else {
-                          alert("Please login to add items to the cart!");
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (user) addToCart(product);
+                        else {
+                           toast.error("⚠️ Please login to add items to cart!");
                           navigate("/login");
                         }
                       }}
@@ -119,11 +115,11 @@ function Home() {
                     </button>
 
                     <button
-                      onClick={() => {
-                        if (user) {
-                          addToWishlist(product);
-                        } else {
-                          alert("Please login to add items to wishlist!");
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (user) addToWishlist(product);
+                        else {
+                          toast.error("⚠️ Please login to add items to cart!");
                           navigate("/login");
                         }
                       }}
