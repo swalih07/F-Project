@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import {
   FaHeart,
@@ -106,6 +107,11 @@ function Navbar({ user, setUser, setSearchQuery }) {
         {/* User */}
         {user ? (
           <>
+            {user.isAdmin && (
+              <Link to="/admin" className="hover:text-blue-400 font-semibold mr-2">
+                Admin
+              </Link>
+            )}
             <span className="font-semibold text-yellow-300">
               Hi, {user.fullName}
             </span>

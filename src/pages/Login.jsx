@@ -1,3 +1,4 @@
+
 import Navbar from "../component/Navbar";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,11 +28,16 @@ function Login({ setUser }) {
 
       // Set logged-in user in app state
       setUser(user);
-
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
 
       toast.success("✅ Login Successful!");
-      navigate("/"); // redirect home
+
+      // If user is admin, redirect to admin dashboard, otherwise go home
+      if (user.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       console.error(err);
       toast.error("⚠️ Something went wrong. Try again!");

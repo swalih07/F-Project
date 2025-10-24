@@ -1,14 +1,25 @@
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FaWallet, FaCreditCard, FaMobileAlt, FaMapMarkerAlt } from "react-icons/fa";
+import axios from "axios";
+import { useCart } from "./CartContext";
 
 function Payment() {
   const location = useLocation();
   const navigate = useNavigate();
   const { cart, totalAmount } = location.state || {};
 
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  let user = null;
+  try {
+    const raw = localStorage.getItem("loggedInUser");
+    user = raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    console.warn("Failed to parse loggedInUser from localStorage", e);
+    user = null;
+  }
+
   const [name, setName] = useState(user?.name || "");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -24,6 +35,8 @@ function Payment() {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+
+  const { clearCart } = useCart();
 
   // 🔹 Check cart
   useEffect(() => {
@@ -82,34 +95,52 @@ function Payment() {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
-      const newOrder = {
-        userEmail: user?.email,
-        name,
-        phone,
-        address,
-        state,
-        pincode,
-        paymentMethod: paymentMethod === "UPI" ? `UPI - ${upiOption || upiId}` :
+    (async () => {
+      try {
+        const payload = {
+          userId: user?.id,
+          userEmail: user?.email,
+          email: user?.email,
+          customer: name,
+          name,
+          phone,
+          address,
+          state,
+          pincode,
+          paymentMethod: paymentMethod === "UPI" ? `UPI - ${upiOption || upiId}` :
                         paymentMethod === "Card" ? `Card - ${cardDetails.number.slice(-4)}` :
                         paymentMethod,
-        location: coords,
-        items: cart,
-        total: totalAmount,
-        date: new Date().toISOString(),
-      };
-      existingOrders.push(newOrder);
-      localStorage.setItem("orders", JSON.stringify(existingOrders));
+          location: coords,
+          items: cart,
+          amount: totalAmount,
+          date: new Date().toISOString(),
+          status: "Processing",
+        };
 
-      setLoading(false);
-      setShowPopup(true);
+        // Post order to backend (json-server or API)
+        await axios.post("http://localhost:5000/orders", payload);
 
-      setTimeout(() => {
-        setShowPopup(false);
-        navigate("/order");
-      }, 3000);
-    }, 1500);
+        // clear cart on success
+        try {
+          await clearCart();
+        } catch (e) {
+          // non-fatal
+          console.warn("Failed to clear cart after order:", e);
+        }
+
+        setShowPopup(true);
+
+        setTimeout(() => {
+          setShowPopup(false);
+          navigate("/order");
+        }, 1500);
+      } catch (err) {
+        console.error("Failed to place order:", err);
+        toast.error("Failed to place order. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
 
   return (

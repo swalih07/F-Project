@@ -1,40 +1,30 @@
 {
   "users": [
     {
+      "fullName": "Administrator",
+      "email": "admin@gmail.com",
+      "isAdmin": true,
+      "id": "admin1"
+    },
+    {
       "id": "d7af",
       "fullName": "swalih",
       "email": "swalihem11@gmail.com",
-      "password": "123456"
+      "password": "123456",
+      "blocked": false
     },
     {
-      "id": "5b9a",
-      "fullName": "Aswin",
-      "email": "aswin@gmail.com",
-      "password": "aswin564"
-    },
-    {
-      "id": "b05a",
       "fullName": "Swalih",
       "email": "swalihem11@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "2092",
-      "fullName": "Akash",
-      "email": "akash@122.com",
-      "password": "123456"
+      "phone": "7025000890",
+      "isAdmin": false,
+      "id": "b05a"
     },
     {
       "id": "8cd5",
       "fullName": "saaali",
       "email": "swalihem11@gmail.com",
       "password": "789456"
-    },
-    {
-      "id": "e54d",
-      "fullName": "Tintu",
-      "email": "tintu23@gmail.com",
-      "password": "Tintu123"
     },
     {
       "id": "71af",
@@ -49,56 +39,69 @@
       "password": "123456"
     },
     {
-      "id": "3532",
-      "fullName": "swalih",
-      "email": "swalihem11@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "980f",
       "fullName": "soman",
       "email": "soman@gmail.com",
-      "password": "soman123",
-      "cart": [
-        {
-          "id": "2",
-          "name": "Bigger Max Neo — Redefine Your Motion",
-          "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
-          "price": 1299,
-          "image": "/product/image2.jpg",
-          "gender": "Women",
-          "quantity": 1
-        },
-        {
-          "id": "7",
-          "name": "Bigger Max Aero — Light as Air, Strong in Motion",
-          "description": "High-quality Feather-light comfort with unshakable grip — the future of effortless speed.",
-          "price": 2500,
-          "image": "/product/image7.jpg",
-          "gender": "Men",
-          "quantity": 1
-        },
-        {
-          "id": "3",
-          "name": "Bigger Max Pulse — Feel the Energy",
-          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
-          "price": 1799,
-          "image": "/product/image3.jpg",
-          "gender": "Men",
-          "selectedSize": 8,
-          "quantity": 1
-        }
-      ]
+      "isAdmin": false,
+      "id": "980f"
+    },
+    {
+      "id": "0179",
+      "fullName": "Rashad ",
+      "email": "Rashadcp@gmail.com",
+      "password": "852852"
+    },
+    {
+      "id": "05f9",
+      "fullName": "Rinsha",
+      "email": "rinsha@gmail.com",
+      "password": "rinsha123"
+    },
+    {
+      "id": "5d2a",
+      "fullName": "Shemin",
+      "email": "shemin@gmail.com",
+      "password": "semin123"
+    },
+    {
+      "id": "a746",
+      "fullName": "Renin",
+      "email": "renin@gmail.com",
+      "password": "renin123"
+    },
+    {
+      "id": "c254",
+      "fullName": "Nikil",
+      "email": "nikil@gmail.com",
+      "password": "nikil123"
+    },
+    {
+      "id": "bb1c",
+      "fullName": "safvan",
+      "email": "safvan@gmail.com",
+      "password": "safvan123"
+    },
+    {
+      "id": "1096",
+      "fullName": "solaman",
+      "email": "solaman@gmail.com",
+      "password": "solaman123"
+    },
+    {
+      "id": "f097",
+      "fullName": "beeran",
+      "email": "beeran@gmail.com",
+      "password": "beeran123"
     }
   ],
   "products": [
     {
-      "id": "1",
       "name": "Bigger Max Edge — Step Beyond Limits",
-      "description": "High-quality Experience next-level comfort and style with the Bigger Max Edge.",
       "price": 1499,
+      "description": "High-quality Experience next-level comfort and style with the Bigger Max Edge.",
       "image": "/product/image1.jpg",
-      "gender": "Men"
+      "category": "men",
+      "stock": "20",
+      "id": "1"
     },
     {
       "id": "2",
@@ -251,6 +254,184 @@
       "price": 1499,
       "image": "/product/image20.jpg",
       "gender": "Women"
+    },
+    {
+      "name": "Bigger Max Supper",
+      "price": "2000",
+      "description": "its very supper",
+      "image": "data:image/jpeg;base64,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",
+      "id": "8a18"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord1",
+      "userId": "980f",
+      "customer": "soman",
+      "email": "soman@gmail.com",
+      "phone": "1234567890",
+      "date": "2025-10-22T10:30:00.000Z",
+      "amount": 5598,
+      "status": "Completed",
+      "shippingAddress": "123 Main St, City",
+      "items": [
+        {
+          "id": "2",
+          "name": "Bigger Max Neo — Redefine Your Motion",
+          "price": 1299,
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Bigger Max Aero — Light as Air, Strong in Motion",
+          "price": 2500,
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "price": 1799,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "7b2d",
+      "customer": "Renin",
+      "userEmail": "renin@gmail.com",
+      "email": "renin@gmail.com",
+      "phone": "1234567890",
+      "shippingAddress": "Lat: 11.0468, Lng: 75.9812, Kerala - 1234",
+      "paymentMethod": "COD",
+      "location": {
+        "lat": 11.0467518,
+        "lng": 75.9811564
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "userId": "a746",
+          "quantity": 1
+        }
+      ],
+      "amount": 1799,
+      "date": "2025-10-23T06:29:06.861Z",
+      "status": "Completed"
+    },
+    {
+      "id": "6970",
+      "userEmail": "nikil@gmail.com",
+      "name": "rashad",
+      "phone": "1234567890",
+      "address": "Lat: 11.0468, Lng: 75.9812",
+      "state": "Kerala",
+      "pincode": "123456",
+      "paymentMethod": "COD",
+      "location": {
+        "lat": 11.0467518,
+        "lng": 75.9811564
+      },
+      "items": [
+        {
+          "id": "2",
+          "name": "Bigger Max Neo — Redefine Your Motion",
+          "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
+          "price": 1299,
+          "image": "/product/image2.jpg",
+          "gender": "Women",
+          "userId": "c254",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "userId": "c254",
+          "quantity": 1
+        }
+      ],
+      "amount": 3098,
+      "date": "2025-10-23T06:49:28.863Z",
+      "status": "Completed"
+    },
+    {
+      "id": "cd6c",
+      "userEmail": "nikil@gmail.com",
+      "name": "nikkill",
+      "phone": "1245789632",
+      "address": "aaa",
+      "state": "Karnataka",
+      "pincode": "457896",
+      "paymentMethod": "COD",
+      "location": {
+        "lat": null,
+        "lng": null
+      },
+      "items": [
+        {
+          "id": "2",
+          "name": "Bigger Max Neo — Redefine Your Motion",
+          "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
+          "price": 1299,
+          "image": "/product/image2.jpg",
+          "gender": "Women",
+          "userId": "c254",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "userId": "c254",
+          "quantity": 1
+        }
+      ],
+      "amount": 3098,
+      "date": "2025-10-23T06:51:42.173Z",
+      "status": "Completed"
+    },
+    {
+      "id": "2cb7",
+      "userId": "1096",
+      "userEmail": "solaman@gmail.com",
+      "email": "solaman@gmail.com",
+      "customer": "solaman",
+      "name": "solaman",
+      "phone": "7845123697",
+      "address": "Lat: 11.0468, Lng: 75.9812",
+      "state": "Tamil Nadu",
+      "pincode": "789456",
+      "paymentMethod": "COD",
+      "location": {
+        "lat": 11.0467518,
+        "lng": 75.9811564
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Bigger Max Pulse — Feel the Energy",
+          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+          "price": 1799,
+          "image": "/product/image3.jpg",
+          "gender": "Men",
+          "userId": "1096",
+          "quantity": 1
+        }
+      ],
+      "amount": 1799,
+      "date": "2025-10-24T04:28:23.148Z",
+      "status": "Processing"
     }
   ],
   "homeProduct": [
@@ -345,19 +526,34 @@
   ],
   "cart": [
     {
-      "id": "cea1",
+      "id": "7",
+      "name": "Bigger Max Aero — Light as Air, Strong in Motion",
+      "description": "High-quality Feather-light comfort with unshakable grip — the future of effortless speed.",
+      "price": 2500,
+      "image": "/product/image7.jpg",
+      "gender": "Men",
       "userId": "980f",
-      "items": [
-        {
-          "id": "3",
-          "name": "Bigger Max Pulse — Feel the Energy",
-          "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
-          "price": 1799,
-          "image": "/product/image3.jpg",
-          "gender": "Men",
-          "quantity": 1
-        }
-      ]
+      "quantity": 1
+    },
+    {
+      "id": "2",
+      "name": "Bigger Max Neo — Redefine Your Motion",
+      "description": "High-quality Sleek, futuristic, and ultra-flexible — experience freedom with every step.",
+      "price": 1299,
+      "image": "/product/image2.jpg",
+      "gender": "Women",
+      "userId": "c254",
+      "quantity": 1
+    },
+    {
+      "id": "3",
+      "name": "Bigger Max Pulse — Feel the Energy",
+      "description": "High-quality Vibrant design meets explosive comfort. Every stride fuels your rhythm.",
+      "price": 1799,
+      "image": "/product/image3.jpg",
+      "gender": "Men",
+      "userId": "1096",
+      "quantity": 1
     }
   ],
   "wishlist": [
